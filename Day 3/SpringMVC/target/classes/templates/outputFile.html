@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Вывод файла</title>
+</head>
+<body>
+<p> Первые две строки файла </p>
+<tr th:each="line : ${lineFile}">
+    <td th:text="${line}"></td>
+    <br>
+</tr>
+</body>
+</html>
