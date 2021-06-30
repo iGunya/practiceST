@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение записи</title>
+</head>
+<body>
+<h3> <td th:text="${size==2}? 'Успешно' : 'Ошибка'"></td> </h3>
+<p> Файлы записаны как минимум по адресам:  </p>
+<span th:text="${ stream1}"></span>
+<br>
+<span th:text="${ stream2}"></span>
+</body>
+</html>
