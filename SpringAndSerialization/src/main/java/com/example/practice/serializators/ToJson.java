@@ -1,6 +1,6 @@
 package com.example.practice.serializators;
 
-import com.example.practice.IoC.Photogaph;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class ToJson implements Serializator {
 
         String jsonInString = null;
         try {
-            jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(o);
+            jsonInString = mapper.writeValueAsString(o);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

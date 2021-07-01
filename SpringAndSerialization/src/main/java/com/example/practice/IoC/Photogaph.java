@@ -20,7 +20,7 @@ public class Photogaph {
     private Map<Integer,String> photos=new HashMap<>();
 
     @Autowired
-    @Qualifier("toYami")
+    @Qualifier("toJson")
     Serializator serializator;
 
     @Autowired
