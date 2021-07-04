@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Test</title>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div th:with="str='{',list='[]'">
+    <ul id="myUL">
+        <li><span span class="caret">JSON объект</span>
+            <div class="nested">
+                <ul th:each="maps : ${info}">
+                    <li>
+                        <div th:with="firstPer=${#strings.toString(maps)}">
+                            <th:block
+                                    th:unless="${#strings.toString(maps.getValue()).charAt(0) eq #strings.toString(list).charAt(0)}">
+                                <span class="caret" th:text="${maps.getKey()}"></span>
+                                <th:block th:if="${firstPer.contains(str)}">
+                                    <div th:replace="recursionHTML :: inMap(${maps})"></div>
+                                </th:block>
+                                <ul class="nested" th:unless="${firstPer.contains(str)}">
+                                    <li><span th:text="${maps.getValue()}"/></li>
+                                </ul>
+                            </th:block>
+                            <!--    если это масссива-->
+                            <th:block th:if="${#strings.toString(maps.getValue()).charAt(0) eq #strings.toString(list).charAt(0)}">
+                                <span class="caret" th:text="${maps.getKey()}"></span>
+                                <div class="nested">
+                                    <ul th:each="inner : ${maps.getValue()}">
+                                        <div th:replace="recursionHTML :: inMap(${inner})"></div>
+                                    </ul>
+                                </div>
+                            </th:block>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>
+
+</body>
+</html>
+

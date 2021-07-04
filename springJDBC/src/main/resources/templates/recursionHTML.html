@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="inMap(maps)">
+    <th:block th:unless="${#strings.toString(maps).charAt(0) eq #strings.toString(str).charAt(0)}">
+        <div class="nested">
+            <ul th:each="map : ${maps.getValue()}">
+                <li>
+                    <div th:with="firstPer=${#strings.toString(map)}">
+                        <th:block
+                                th:unless="${#strings.toString(maps.getValue()).charAt(0) eq #strings.toString(list).charAt(0)}">
+                            <span class="caret" th:text="${map.getKey()}"/>
+                            <div th:if="${firstPer.contains(str)}">
+                                <div th:replace="recursionHTML :: inMap(${map})"></div>
+                            </div>
+                            <ul class="nested" th:unless="${firstPer.contains(str)}">
+                                <li><span th:text="${map.getValue()}"/></li>
+                            </ul>
+                        </th:block>
+                        <th:block
+                                th:if="${#strings.toString(maps.getValue()).charAt(0) eq #strings.toString(list).charAt(0)}">
+                            <ul th:each="inner : ${map.getValue()}">
+                                <div th:replace="recursionHTML :: inMap(${inner})"></div>
+                            </ul>
+                        </th:block>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </th:block>
+    <!--    если это масссива-->
+    <th:block th:if="${#strings.toString(maps).charAt(0) eq #strings.toString(str).charAt(0)}">
+        <ul th:each="map : ${maps}">
+            <li>
+                <div th:with="firstPer=${#strings.toString(map)}">
+                    <th:block th:unless="${#strings.toString(maps).charAt(0) eq #strings.toString(list).charAt(0)}">
+                        <span class="caret" th:text="${map.getKey()}"/>
+                        <div th:if="${firstPer.contains(str)}">
+                            <div th:replace="recursionHTML :: inMap(${map})"></div>
+                        </div>
+                        <ul class="nested" th:unless="${firstPer.contains(str)}">
+                            <li><span th:text="${map.getValue()}"/></li>
+                        </ul>
+                    </th:block>
+                    <th:block th:if="${#strings.toString(maps).charAt(0) eq #strings.toString(list).charAt(0)}">
+                        <div class="nested">
+                            <ul th:each="inner : ${map.getValue()}">
+                                <div th:replace="recursionHTML :: inMap(${inner})"></div>
+                            </ul>
+                        </div>
+                    </th:block>
+                </div>
+            </li>
+        </ul>
+    </th:block>
+</div>
+
+</body>
+</html>
